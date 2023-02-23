@@ -10,11 +10,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../features/user/userSlice';
+import { login } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import Loader from '../assets/loading.svg';
+import Loader from '../../assets/loading.svg';
 
 export default function LogIn() {
   const navigate = useNavigate();

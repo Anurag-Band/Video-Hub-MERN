@@ -10,12 +10,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../features/user/userSlice';
+import { signup } from '../../features/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import Loader from '../assets/loading.svg';
+import Loader from '../../assets/loading.svg';
 
 export default function SignUp() {
   const dispatch = useDispatch();

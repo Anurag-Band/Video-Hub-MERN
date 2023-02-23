@@ -1,15 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './components/routes/ProtectedRoute';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
-import LogIn from './pages/LogIn';
-import SignUp from './pages/SignUp';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, loadUser } from './features/user/userSlice';
 import { useEffect } from 'react';
 import { store } from './store/store';
 import { Box } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
+import CreatorRoute from './components/routes/CreatorRoute';
+import LogIn from './pages/auth/LogIn';
+import SignUp from './pages/auth/SignUp';
+import UploadNewVideo from './pages/creator/UploadNewVideo';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,13 +37,20 @@ function App() {
     >
       <Navbar />
       <Routes>
+        {/* Un-Protected routes */}
         <Route>
           <Route path='/login' element={<LogIn />} />
           <Route path='/signup' element={<SignUp />} />
         </Route>
+
         {/* USER protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path='/' element={<Home />} />
+        </Route>
+
+        {/* Creator protected routes */}
+        <Route element={<CreatorRoute />}>
+          <Route path='/creator/video/upload' element={<UploadNewVideo />} />
         </Route>
       </Routes>
       <ToastContainer />

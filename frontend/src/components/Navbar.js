@@ -54,7 +54,7 @@ export default function Navbar() {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          margin: '0 4rem',
+          margin: '0 6rem',
         }}
       >
         <Box
@@ -115,12 +115,27 @@ export default function Navbar() {
                 MenuListProps={{
                   'aria-labelledby': 'basic-button',
                 }}
+                sx={{
+                  gap: 5,
+                }}
               >
+                {isAuthenticated && user?.role === 'creator' && (
+                  <MenuItem
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '6px 30px',
+                    }}
+                    onClick={() => navigate('/creator/video/upload')}
+                  >
+                    <Typography>Upload New Video</Typography>
+                  </MenuItem>
+                )}
                 <MenuItem
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    padding: '4px 25px',
+                    padding: '6px 30px',
                   }}
                   onClick={handleLogOut}
                 >
