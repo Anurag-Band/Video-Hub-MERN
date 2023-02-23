@@ -14,3 +14,12 @@ exports.isAuthenticated = catchAsync(async (req, res, next) => {
   req.user = await User.findById(decodedData.id);
   next();
 });
+
+exports.isValidRole = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(new CustomError('You are not allowed for this resouce', 403));
+    }
+    next();
+  };
+};

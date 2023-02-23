@@ -40,4 +40,4 @@ const commentsSchema = mongoose.Schema(
   }
 );
 
-module.exports = commentsSchema;
+module.exports = mongoose.model('Comment', commentsSchema);
