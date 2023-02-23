@@ -5,49 +5,43 @@ const validator = require("validator");
 
 const userSchema = new mongoose.Schema(
   {
-    fullName: {
+    name: {
       type: String,
-      required: [true, "Please enter your full name"],
-    },
-    username: {
-      type: String,
-      required: [true, "Please enter username"],
-      minlength: [6, "Username must be of minimum 6 characters"],
-      unique: [true, "Username already exists"],
+      required: [true, 'Please enter your full name'],
     },
     email: {
       type: String,
-      required: [true, "Please enter email"],
-      validate: [validator.isEmail, "Email is not Valid"],
-      unique: [true, "Email already exists"],
+      required: [true, 'Please enter email'],
+      validate: [validator.isEmail, 'Email is not Valid'],
+      unique: [true, 'Email already exists'],
     },
     password: {
       type: String,
-      required: [true, "Please enter password"],
+      required: [true, 'Please enter password'],
       select: false,
       validate: {
-        validator: value =>
-        validator.isStrongPassword(value, {
-              minLength: 8,
-              minUppercase: 1,
-              minSymbols: 1,
-              minNumbers: 2,
-           }),
+        validator: (value) =>
+          validator.isStrongPassword(value, {
+            minLength: 8,
+            minUppercase: 1,
+            minSymbols: 1,
+            minNumbers: 2,
+          }),
         message:
-           "Password should be atleast 8 characters with 1 uppercase, 2 numbers & 1 symbol",
-     },
+          'Password should be atleast 8 characters with 1 uppercase, 2 numbers & 1 symbol',
+      },
     },
     profilePic: {
       type: String,
-      required: [true, "Profile Picture is required"],
+      required: [true, 'Profile Picture is required'],
     },
     role: {
       type: String,
       enum: {
-         values: ['creator', 'student'],
-         message: 'user role not found',
+        values: ['creator', 'student'],
+        message: 'user role not found',
       },
-   },
+    },
   },
   {
     timestamps: true,

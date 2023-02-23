@@ -5,23 +5,20 @@ const ErrorHandler = require('../utils/errorHandler');
 
 // Signup User
 exports.signupUser = catchAsync(async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
-  const user = await User.findOne({
-    $or: [{ email }, { username }],
-  });
+  const user = await User.findOne({ email });
+
   if (user) {
-    if (user.username === username) {
-      return next(new ErrorHandler('Username already exists', 401));
-    }
     return next(new ErrorHandler('Email already exists', 401));
   }
 
   const newUser = await User.create({
-    username,
+    name,
     email,
     password,
     profilePic: req.file.location,
+    role,
   });
 
   sendCookie(newUser, 201, res);
@@ -29,11 +26,9 @@ exports.signupUser = catchAsync(async (req, res, next) => {
 
 // Login User
 exports.loginUser = catchAsync(async (req, res, next) => {
-  const { userId, password } = req.body;
+  const { email, password } = req.body;
 
-  const user = await User.findOne({
-    $or: [{ email: userId }, { username: userId }],
-  }).select('+password');
+  const user = await User.findOne({ email }).select('+password');
 
   if (!user) {
     return next(new ErrorHandler("User doesn't exist", 401));
