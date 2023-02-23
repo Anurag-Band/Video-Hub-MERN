@@ -16,8 +16,12 @@ if (process.env.NODE_ENV != "production") {
 
 // import routes
 const user = require("./routes/userRoute");
+const video = require('./routes/videoRoute');
+const comment = require('./routes/commentRoute');
 
 app.use("/api/v1", user);
+app.use('/api/v1', video);
+app.use('/api/v1', comment);
 
 // deployment
 __dirname = path.resolve();

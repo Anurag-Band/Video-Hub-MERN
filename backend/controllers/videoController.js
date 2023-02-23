@@ -10,6 +10,7 @@ exports.creatorUploadVideo = catchAsync(async (req, res, next) => {
     description,
     video,
     thumbnail: req.file.location,
+    creator: req.user?._id,
   });
 
   res.status(200).json({
