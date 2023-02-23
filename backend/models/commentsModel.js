@@ -8,7 +8,7 @@ const commentsSchema = mongoose.Schema(
       ref: 'videos',
       required: [true, 'Please provide video informations'],
     },
-    main: {
+    mainComment: {
       user: {
         type: ObjectId,
         ref: 'users',
@@ -19,6 +19,10 @@ const commentsSchema = mongoose.Schema(
         trim: true,
         required: [true, 'Please provide comment content'],
       },
+    },
+    commentedAt: {
+      type: Date,
+      required: true,
     },
     replies: [
       {
@@ -31,6 +35,10 @@ const commentsSchema = mongoose.Schema(
           type: String,
           trim: true,
           required: [true, 'Please provide comment content'],
+        },
+        repliedAt: {
+          type: Date,
+          required: true,
         },
       },
     ],
