@@ -27,7 +27,10 @@ export const userSlice = createSlice({
       .addCase(logoutUser.rejected, (state) => {
         state.status = 'ERROR';
       })
-      // for signip ->>
+      // for signup ->>
+      .addCase(signup.pending, (state) => {
+        state.status = 'LOADING';
+      })
       .addCase(signup.fulfilled, (state, action) => {
         state.isAuthenticated = true;
         state.user = action.payload?.user;
@@ -39,6 +42,9 @@ export const userSlice = createSlice({
         state.errorMessage = action.payload;
       })
       // for loadUser & login ->>
+      .addMatcher(isAnyOf(loadUser.fulfilled, login.fulfilled), (state) => {
+        state.status = 'LOADING';
+      })
       .addMatcher(
         isAnyOf(loadUser.fulfilled, login.fulfilled),
         (state, action) => {

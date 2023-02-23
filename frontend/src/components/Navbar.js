@@ -4,23 +4,19 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logoutUser } from "../features/user/userSlice";
-import Logo from "../assets/Logo.png";
-import { CircleNotifications, Favorite } from "@mui/icons-material";
+} from '@mui/material';
+import { Box } from '@mui/system';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logoutUser } from '../features/user/userSlice';
+import Logo from '../assets/Logo.png';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthenticated, user, notifications } = useSelector(
-    (state) => state.user
-  );
+  const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -38,140 +34,101 @@ export default function Navbar() {
     setAnchorEl(null);
     dispatch(logoutUser());
 
-    navigate("/login");
+    navigate('/login');
   };
 
   return (
     <AppBar
       position='relative'
       sx={{
-        width: "100%",
-        overflowX: "hidden",
-        position: "sticky",
+        width: '100%',
+        overflowX: 'hidden',
+        position: 'sticky',
         top: 0,
         zIndex: 999,
-        bgcolor: "#ffc6e9",
+        bgcolor: '#ff1919',
       }}
     >
       <Toolbar
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          margin: '0 4rem',
         }}
       >
-        <img
-          src={Logo}
-          alt='Dating Hub'
-          style={{
-            width: "18rem",
-          }}
-        />
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 7,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 3,
           }}
         >
-          <Box>
-            {isAuthenticated && (
-              <Box>
-                <IconButton
-                  id='basic-button'
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup='true'
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                >
-                  <CircleNotifications
-                    sx={{
-                      fontSize: 33,
-                    }}
-                  />
-                  {`${notifications?.length}`}
-                </IconButton>
-                <Menu
-                  id='basic-menu'
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                  sx={{
-                    gap: 1,
-                  }}
-                >
-                  {notifications?.length === 0 && (
-                    <MenuItem>No Notifications</MenuItem>
-                  )}
-                  {notifications?.length > 0 &&
-                    notifications?.map((notif, index) =>
-                      notif.type === "Liked" ? (
-                        <MenuItem
-                          key={index}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 2,
-                            padding: "11px 15px",
-                          }}
-                        >
-                          <Favorite
-                            sx={{
-                              color: "red",
-                              fontSize: "34px",
-                              margin: "0 9px",
-                            }}
-                          />
-                          <Typography>
-                            {`${notif.type} by @${notif.senderUser.username}`}
-                          </Typography>
-                        </MenuItem>
-                      ) : (
-                        <MenuItem
-                          key={index}
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 2,
-                          }}
-                        >
-                          <img
-                            src={notif?.senderUser?.profilePic}
-                            alt={notif?.senderUser?.username}
-                            style={{
-                              width: "3rem",
-                            }}
-                          />
-                          <Typography>
-                            {`${notif.type} by @${notif.senderUser.username}`}
-                          </Typography>
-                        </MenuItem>
-                      )
-                    )}
-                </Menu>
-              </Box>
-            )}
-          </Box>
-          <Box>
-            {isAuthenticated && (
-              <Tooltip title={"Log Out"}>
+          <img
+            src={Logo}
+            alt='Dating Hub'
+            style={{
+              width: '3.5rem',
+            }}
+          />
+          <Typography
+            sx={{
+              fontSize: '30px',
+              fontWeight: '600',
+              color: 'white',
+            }}
+          >
+            Video Hub
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          {isAuthenticated && (
+            <Box>
+              <IconButton
+                id='basic-button'
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup='true'
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
                 <img
                   src={user?.profilePic}
                   alt={user?.username}
                   style={{
-                    width: "4rem",
-                    height: "4rem",
-                    objectFit: "cover",
-                    borderRadius: "100%",
+                    width: '4rem',
+                    height: '4rem',
+                    objectFit: 'cover',
+                    borderRadius: '100%',
+                  }}
+                />
+              </IconButton>
+              <Menu
+                id='basic-menu'
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '4px 25px',
                   }}
                   onClick={handleLogOut}
-                />
-              </Tooltip>
-            )}
-          </Box>
+                >
+                  <Typography>Logout</Typography>
+                </MenuItem>
+              </Menu>
+            </Box>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
