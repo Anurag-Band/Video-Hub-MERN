@@ -27,3 +27,38 @@ exports.getAllVideos = catchAsync(async (req, res, next) => {
     videos,
   });
 });
+
+// User Likes a Video
+exports.userLikesVideo = catchAsync(async (req, res, next) => {
+  const currentUser = req.user?._id;
+  const { videoId } = req.params;
+
+  const video = await Video.findById(videoId);
+
+  if (!video) {
+    return next(new ErrorHandler('Video Not Found', 404));
+  }
+
+  if (video.likes.includes(currentUser)) {
+    const index = video.likes.indexOf(currentUser);
+
+    video.likes.splice(index, 1);
+    await video.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Video Unliked!',
+      isLiked: false,
+    });
+  } else {
+    video.likes.push(currentUser);
+
+    await video.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Video Liked!',
+      isLiked: true,
+    });
+  }
+});
