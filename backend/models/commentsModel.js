@@ -20,10 +20,6 @@ const commentsSchema = mongoose.Schema(
         required: [true, 'Please provide comment content'],
       },
     },
-    commentedAt: {
-      type: Date,
-      required: true,
-    },
     replies: [
       {
         user: {
@@ -38,7 +34,6 @@ const commentsSchema = mongoose.Schema(
         },
         repliedAt: {
           type: Date,
-          required: true,
         },
       },
     ],

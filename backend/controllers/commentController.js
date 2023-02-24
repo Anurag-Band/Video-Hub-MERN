@@ -12,7 +12,7 @@ exports.getAllVideoComments = catchAsync(async (req, res, next) => {
 
   const comments = await Comment.find({
     video: videoId,
-  });
+  }).populate('mainComment.user replies.user');
 
   res.status(200).json({
     success: true,
@@ -41,6 +41,7 @@ exports.addComment = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
+    message: 'Commented Successfully!',
     newComment,
   });
 });
