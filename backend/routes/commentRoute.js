@@ -8,9 +8,7 @@ const {
 } = require('../controllers/commentController');
 const { isAuthenticated } = require('../middlewares/auth');
 
-router
-  .route('/video/comments/:videoId')
-  .get(isAuthenticated, getAllVideoComments);
+router.route('/video/comments/:videoId').get(getAllVideoComments);
 
 router.route('/video/comment').post(isAuthenticated, addComment);
 

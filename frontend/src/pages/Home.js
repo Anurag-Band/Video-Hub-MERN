@@ -41,7 +41,7 @@ export default function Home() {
           width: '100%',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 2,
+          gap: 3,
         }}
       >
         {allVideos?.map((vid, index) => (

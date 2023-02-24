@@ -26,6 +26,6 @@ router.route('/videos/all').get(isAuthenticated, getAllVideos);
 // common routes
 router.route('/video/like/:videoId').put(isAuthenticated, userLikesVideo);
 
-router.route('/video/:videoId').get(isAuthenticated, getVideoById);
+router.route('/video/:videoId').get(getVideoById);
 
 module.exports = router;

@@ -13,7 +13,7 @@ export default function ProfileCard({ vid }) {
       sx={{
         margin: '0 auto',
         bgcolor: '#ffffff',
-        width: '25vw',
+        width: '22rem',
         borderRadius: 2,
         boxShadow: 5,
         color: 'inherit',

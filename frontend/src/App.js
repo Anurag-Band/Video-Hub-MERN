@@ -42,12 +42,12 @@ function App() {
         <Route>
           <Route path='/login' element={<LogIn />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/video/:videoId' element={<VideoDetails />} />
         </Route>
 
         {/* USER protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path='/' element={<Home />} />
-          <Route path='/video/:videoId' element={<VideoDetails />} />
         </Route>
 
         {/* Creator protected routes */}

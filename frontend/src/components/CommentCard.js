@@ -15,7 +15,7 @@ import { ErrorToast, SuccessToast } from '../utils/CustomToast';
 import ReplyCard from './ReplyCard';
 
 export default function CommentCard({ cmt, fetchVideoComments }) {
-  const user = useSelector((state) => state.user.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [reply, setReplay] = useState('');
 
@@ -116,17 +116,20 @@ export default function CommentCard({ cmt, fetchVideoComments }) {
             >
               {cmt?.createdAt}
             </Moment>
-            <CardActions>
-              <IconButton aria-label='Reply' onClick={handleReplyToggle}>
-                <Typography
-                  sx={{
-                    color: 'blue',
-                  }}
-                >
-                  Reply
-                </Typography>
-              </IconButton>
-            </CardActions>
+
+            {isAuthenticated && (
+              <CardActions>
+                <IconButton aria-label='Reply' onClick={handleReplyToggle}>
+                  <Typography
+                    sx={{
+                      color: 'blue',
+                    }}
+                  >
+                    Reply
+                  </Typography>
+                </IconButton>
+              </CardActions>
+            )}
           </Box>
           <Typography>{cmt?.mainComment?.content}</Typography>
         </Box>
@@ -146,7 +149,7 @@ export default function CommentCard({ cmt, fetchVideoComments }) {
           </CardActions>
         )}
       </Box>
-      {showReplyInput && (
+      {isAuthenticated && showReplyInput && (
         <Box
           sx={{
             display: 'flex',

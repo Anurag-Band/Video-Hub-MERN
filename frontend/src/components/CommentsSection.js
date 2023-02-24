@@ -10,7 +10,7 @@ import CommentCard from './CommentCard';
 
 export default function CommentsSection({ videoId }) {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const { user, isAuthenticated } = useSelector((state) => state.user);
   const { videoComments, status: commentStatus } = useSelector(
     (state) => state.comment
   );
@@ -84,31 +84,46 @@ export default function CommentsSection({ videoId }) {
         >
           Comments
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 3,
-          }}
-        >
-          <TextField
-            required
-            fullWidth
-            id='comment'
-            label='Comment'
-            comment='comment'
-            autoComplete='comment'
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <IconButton
-            type='submit'
-            aria-label='comment'
-            onClick={handleComment}
+
+        {videoComments?.length === 0 && (
+          <Typography
+            sx={{
+              fontSize: 15,
+              fontWeight: 500,
+              mt: 2,
+            }}
           >
-            <Send fontSize={'10'} />
-          </IconButton>
-        </Box>
+            No Comments Found, Login & be the First one to Comment!
+          </Typography>
+        )}
+
+        {isAuthenticated && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 3,
+            }}
+          >
+            <TextField
+              required
+              fullWidth
+              id='comment'
+              label='Comment'
+              comment='comment'
+              autoComplete='comment'
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <IconButton
+              type='submit'
+              aria-label='comment'
+              onClick={handleComment}
+            >
+              <Send fontSize={'10'} />
+            </IconButton>
+          </Box>
+        )}
       </Box>
       <Box>
         {videoComments?.map((cmt, index) => (
