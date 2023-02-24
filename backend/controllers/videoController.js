@@ -21,11 +21,22 @@ exports.creatorUploadVideo = catchAsync(async (req, res, next) => {
 
 // get All Videos
 exports.getAllVideos = catchAsync(async (req, res, next) => {
-  const videos = await Video.find();
+  const videos = await Video.find().populate('creator');
 
   res.status(200).json({
     success: true,
     videos,
+  });
+});
+
+// get Video by Id
+exports.getVideoById = catchAsync(async (req, res, next) => {
+  const { videoId } = req.params;
+  const video = await Video.findById(videoId).populate('creator');
+
+  res.status(200).json({
+    success: true,
+    video,
   });
 });
 

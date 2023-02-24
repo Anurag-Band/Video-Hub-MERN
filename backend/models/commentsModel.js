@@ -5,13 +5,13 @@ const commentsSchema = mongoose.Schema(
   {
     video: {
       type: ObjectId,
-      ref: 'videos',
+      ref: 'Video',
       required: [true, 'Please provide video informations'],
     },
     mainComment: {
       user: {
         type: ObjectId,
-        ref: 'users',
+        ref: 'User',
         required: [true, 'Please provide user informations'],
       },
       content: {
@@ -28,7 +28,7 @@ const commentsSchema = mongoose.Schema(
       {
         user: {
           type: ObjectId,
-          ref: 'users',
+          ref: 'User',
           required: [true, 'Please provide user informations'],
         },
         content: {

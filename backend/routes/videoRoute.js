@@ -5,6 +5,7 @@ const {
   creatorUploadVideo,
   getAllVideos,
   userLikesVideo,
+  getVideoById,
 } = require('../controllers/videoController');
 const { isAuthenticated, isValidRole } = require('../middlewares/auth');
 const { upload } = require('../utils/awsFunctions');
@@ -23,6 +24,8 @@ router
 router.route('/videos/all').get(isAuthenticated, getAllVideos);
 
 // common routes
-router.route('/video/like/:videoId').get(isAuthenticated, userLikesVideo);
+router.route('/video/like/:videoId').put(isAuthenticated, userLikesVideo);
+
+router.route('/video/:videoId').get(isAuthenticated, getVideoById);
 
 module.exports = router;
