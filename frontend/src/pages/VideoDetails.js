@@ -183,7 +183,7 @@ export default function VideoDetails() {
                 <Tooltip title='Share on Whatsapp'>
                   {/* Add Deployed Link to Share Button */}
                   <a
-                    href={`https://web.whatsapp.com/send?text=http://localhost:3440/video/${videoDetails?._id}`}
+                    href={`https://web.whatsapp.com/send?text=https://video-hub-mern.onrender.com/video/${videoDetails?._id}`}
                     rel='noreferrer'
                     target='_blank'
                   >
