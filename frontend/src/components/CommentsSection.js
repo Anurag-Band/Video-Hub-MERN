@@ -46,7 +46,7 @@ export default function CommentsSection({ videoId }) {
   };
 
   useEffect(() => {
-    if (!videoId || videoComments) return;
+    if (!videoId) return;
     fetchVideoComments();
 
     // eslint-disable-next-line

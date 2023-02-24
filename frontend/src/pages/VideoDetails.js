@@ -158,27 +158,36 @@ export default function VideoDetails() {
             </Typography>
           </Box>
 
-          {isAuthenticated && (
-            <CardActions sx={{ gap: 3, mr: 5 }}>
-              <IconButton aria-label='like' onClick={handleUserLike}>
-                <Tooltip title='Like'>
-                  {hasLiked ? (
-                    <Favorite
-                      sx={{
-                        color: 'red',
-                        fontSize: '2rem',
-                      }}
-                    />
-                  ) : (
-                    <Favorite
-                      sx={{
-                        color: 'grey',
-                        fontSize: '2rem',
-                      }}
-                    />
-                  )}
-                </Tooltip>
-              </IconButton>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {isAuthenticated && (
+              <CardActions>
+                <IconButton aria-label='like' onClick={handleUserLike}>
+                  <Tooltip title='Like'>
+                    {hasLiked ? (
+                      <Favorite
+                        sx={{
+                          color: 'red',
+                          fontSize: '2rem',
+                        }}
+                      />
+                    ) : (
+                      <Favorite
+                        sx={{
+                          color: 'grey',
+                          fontSize: '2rem',
+                        }}
+                      />
+                    )}
+                  </Tooltip>
+                </IconButton>
+              </CardActions>
+            )}
+            <CardActions sx={{ mr: 5 }}>
               <IconButton aria-label='Share on Whatsapp'>
                 <Tooltip title='Share on Whatsapp'>
                   {/* Add Deployed Link to Share Button */}
@@ -196,7 +205,7 @@ export default function VideoDetails() {
                 </Tooltip>
               </IconButton>
             </CardActions>
-          )}
+          </Box>
         </Box>
 
         <Typography>{videoDetails?.description}</Typography>
