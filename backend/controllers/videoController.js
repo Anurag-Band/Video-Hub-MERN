@@ -32,7 +32,17 @@ exports.getAllVideos = catchAsync(async (req, res, next) => {
 // get Video by Id
 exports.getVideoById = catchAsync(async (req, res, next) => {
   const { videoId } = req.params;
-  const video = await Video.findById(videoId).populate('creator');
+  
+  const video = await Video.findByIdAndUpdate(
+    videoId,
+    {
+      $inc: { views: 1 },
+    },
+    {
+      new: true,
+    }
+  ).populate('creator');
+
 
   res.status(200).json({
     success: true,

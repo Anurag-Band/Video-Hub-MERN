@@ -48,7 +48,9 @@ export default function VideoDetails() {
     if (!videoId) return;
 
     dispatch(getVideoDetails(videoId));
-  }, [dispatch, videoId]);
+
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (!videoDetails || !user) return;
