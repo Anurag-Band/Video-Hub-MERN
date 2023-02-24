@@ -107,7 +107,14 @@ export default function LogIn() {
             disabled={status === 'LOADING'}
           >
             {status === 'LOADING' ? (
-              <img src={Loader} alt='Loading...' />
+              <img
+                style={{
+                  width: '30px',
+                  margin: '0 auto',
+                }}
+                src={Loader}
+                alt='Loading...'
+              />
             ) : (
               'Log In'
             )}

@@ -12,7 +12,6 @@ import CreatorRoute from './utils/routes/CreatorRoute';
 import LogIn from './pages/auth/LogIn';
 import SignUp from './pages/auth/SignUp';
 import UploadNewVideo from './pages/creator/UploadNewVideo';
-import { ErrorToast } from './utils/CustomToast';
 import VideoDetails from './pages/VideoDetails';
 
 function App() {
@@ -23,10 +22,6 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (errorMessage) {
-      ErrorToast(errorMessage);
-    }
-
     if (status === 'ERROR') {
       setTimeout(() => {
         dispatch(clearErrors());

@@ -102,7 +102,7 @@ export default function Navbar() {
               >
                 <img
                   src={user?.profilePic}
-                  alt={user?.username}
+                  alt={user?.name}
                   style={{
                     width: '4rem',
                     height: '4rem',

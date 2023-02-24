@@ -20,6 +20,14 @@ export default function UploadNewVideo() {
 
   const [loading, setLoading] = useState(false);
 
+  const resetForm = () => {
+    setLoading(false);
+    setTitle('');
+    setDescription('');
+    setVideo('');
+    setVideoThumbnail(undefined);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     let formData = new FormData();
@@ -44,7 +52,7 @@ export default function UploadNewVideo() {
       );
 
       if (data?.success === true) {
-        setLoading(false);
+        resetForm();
         SuccessToast('Video Created Successfully!');
       }
 

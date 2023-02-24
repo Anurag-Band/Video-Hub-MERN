@@ -158,7 +158,14 @@ export default function SignUp() {
             disabled={status === 'LOADING'}
           >
             {status === 'LOADING' ? (
-              <img src={Loader} alt='Loading...' />
+              <img
+                style={{
+                  width: '30px',
+                  margin: '0 auto',
+                }}
+                src={Loader}
+                alt='Loading...'
+              />
             ) : (
               'Sign Up'
             )}

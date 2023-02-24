@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 import { getVideos } from '../features/video/videoSlice';
 import { clearErrors } from '../features/user/userSlice';
-import { ErrorToast } from '../utils/CustomToast';
 import VideoCard from '../components/VideoCard';
 
 export default function Home() {
@@ -18,10 +17,6 @@ export default function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (errorMessage) {
-      ErrorToast(errorMessage);
-    }
-
     if (status === 'ERROR') {
       setTimeout(() => {
         dispatch(clearErrors());
