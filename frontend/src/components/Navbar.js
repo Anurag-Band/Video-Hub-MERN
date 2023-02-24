@@ -9,7 +9,7 @@ import {
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../features/user/userSlice';
 import Logo from '../assets/Logo.png';
 
@@ -58,10 +58,14 @@ export default function Navbar() {
         }}
       >
         <Box
+          component={Link}
+          to={'/'}
           sx={{
             display: 'flex',
             alignItems: 'center',
             gap: 3,
+            color: 'inherit',
+            textDecoration: 'inherit',
           }}
         >
           <img

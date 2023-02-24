@@ -1,8 +1,34 @@
 import { Box, Container, CssBaseline } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
+import { getVideos } from '../features/video/videoSlice';
+import { clearErrors } from '../features/user/userSlice';
+import { ErrorToast } from '../utils/CustomToast';
+import VideoCard from '../components/VideoCard';
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const { allVideos, status, errorMessage } = useSelector(
+    (state) => state.video
+  );
+
+  useEffect(() => {
+    dispatch(getVideos());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      ErrorToast(errorMessage);
+    }
+
+    if (status === 'ERROR') {
+      setTimeout(() => {
+        dispatch(clearErrors());
+      }, 3000);
+    }
+  }, [status, dispatch, errorMessage]);
+
   return (
     <Container
       component='main'
@@ -19,11 +45,13 @@ export default function Home() {
           paddingBottom: 8,
           width: '100%',
           display: 'flex',
-          flexDirection: 'column',
+          flexWrap: 'wrap',
           gap: 2,
         }}
       >
-        <h1>Home Page</h1>
+        {allVideos?.map((vid, index) => (
+          <VideoCard key={index} vid={vid} />
+        ))}
       </Box>
     </Container>
   );

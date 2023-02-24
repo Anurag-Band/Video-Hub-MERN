@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import ProtectedRoute from './components/routes/ProtectedRoute';
+import ProtectedRoute from './utils/routes/ProtectedRoute';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,10 +8,12 @@ import { useEffect } from 'react';
 import { store } from './store/store';
 import { Box } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
-import CreatorRoute from './components/routes/CreatorRoute';
+import CreatorRoute from './utils/routes/CreatorRoute';
 import LogIn from './pages/auth/LogIn';
 import SignUp from './pages/auth/SignUp';
 import UploadNewVideo from './pages/creator/UploadNewVideo';
+import { ErrorToast } from './utils/CustomToast';
+import VideoDetails from './pages/VideoDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -21,10 +23,14 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    if (errorMessage) {
+      ErrorToast(errorMessage);
+    }
+
     if (status === 'ERROR') {
       setTimeout(() => {
         dispatch(clearErrors());
-      }, 2000);
+      }, 3000);
     }
   }, [status, dispatch, errorMessage]);
 
@@ -46,6 +52,7 @@ function App() {
         {/* USER protected routes */}
         <Route element={<ProtectedRoute />}>
           <Route path='/' element={<Home />} />
+          <Route path='/video/:videoId' element={<VideoDetails />} />
         </Route>
 
         {/* Creator protected routes */}
