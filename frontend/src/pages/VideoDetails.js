@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { Favorite, ShareOutlined } from '@mui/icons-material';
+import { Favorite } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getVideoDetails } from '../features/video/videoSlice';
@@ -17,6 +17,7 @@ import Loader from '../assets/loading.svg';
 import Moment from 'react-moment';
 import ReactPlayer from 'react-player';
 import CommentsSection from '../components/CommentsSection';
+import WhatsAppIcon from '../assets/whatsapp.png';
 
 export default function VideoDetails() {
   const dispatch = useDispatch();
@@ -106,7 +107,20 @@ export default function VideoDetails() {
         >
           {videoDetails?.title}
         </Typography>
-
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            color: '#7c7c7c',
+            fontSize: 16,
+            gap: 4,
+          }}
+        >
+          <Typography
+            fontSize={18}
+          >{`${videoDetails?.views} views`}</Typography>
+          <Moment fromNow>{videoDetails?.createdAt}</Moment>
+        </Box>
         <Box
           sx={{
             display: 'flex',
@@ -143,44 +157,43 @@ export default function VideoDetails() {
               {videoDetails?.creator?.name}
             </Typography>
           </Box>
-          <CardActions>
+          <CardActions sx={{ gap: 3, mr: 5 }}>
             <IconButton aria-label='like' onClick={handleUserLike}>
               <Tooltip title='Like'>
                 {hasLiked ? (
                   <Favorite
                     sx={{
                       color: 'red',
+                      fontSize: '2rem',
                     }}
                   />
                 ) : (
                   <Favorite
                     sx={{
                       color: 'grey',
+                      fontSize: '2rem',
                     }}
                   />
                 )}
               </Tooltip>
             </IconButton>
-            <IconButton aria-label='like' onClick={handleUserLike}>
-              <Tooltip title='Share'>
-                <ShareOutlined />
+            <IconButton aria-label='Share on Whatsapp'>
+              <Tooltip title='Share on Whatsapp'>
+                {/* Add Deployed Link to Share Button */}
+                <a
+                  href={`https://web.whatsapp.com/send?text=http://localhost:3440/video/${videoDetails?._id}`}
+                  rel='noreferrer'
+                  target='_blank'
+                >
+                  <img
+                    style={{ width: '1.6rem', height: '1.6rem' }}
+                    src={WhatsAppIcon}
+                    alt='Share on WhatsApp'
+                  />
+                </a>
               </Tooltip>
             </IconButton>
           </CardActions>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            color: '#7c7c7c',
-            fontSize: 16,
-            gap: 4,
-          }}
-        >
-          <Typography
-            fontSize={18}
-          >{`${videoDetails?.views} views`}</Typography>
-          <Moment fromNow>{videoDetails?.createdAt}</Moment>
         </Box>
 
         <Typography>{videoDetails?.description}</Typography>

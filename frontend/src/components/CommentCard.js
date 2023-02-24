@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { ErrorToast, SuccessToast } from '../utils/CustomToast';
 import ReplyCard from './ReplyCard';
 
-export default function CommentCard({ cmt }) {
+export default function CommentCard({ cmt, fetchVideoComments }) {
   const user = useSelector((state) => state.user.user);
   const [showReplyInput, setShowReplyInput] = useState(false);
   const [reply, setReplay] = useState('');
@@ -50,8 +50,10 @@ export default function CommentCard({ cmt }) {
       );
 
       if (data?.success === true) {
+        fetchVideoComments();
         SuccessToast(data.message);
         setReplay('');
+        setShowReplyInput(false);
       }
     } catch (error) {
       ErrorToast(error.response.data.message);
@@ -76,7 +78,7 @@ export default function CommentCard({ cmt }) {
             height: '3rem',
             objectFit: 'cover',
             borderRadius: '100%',
-            marginTop: 5,
+            marginTop: 15,
           }}
         />
         {/* Right Section */}
@@ -178,7 +180,7 @@ export default function CommentCard({ cmt }) {
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            flexDirection: 'column',
             gap: 3,
             ml: 10,
           }}

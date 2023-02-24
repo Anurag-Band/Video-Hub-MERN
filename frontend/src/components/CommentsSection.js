@@ -16,6 +16,10 @@ export default function CommentsSection({ videoId }) {
   );
   const [comment, setComment] = useState('');
 
+  async function fetchVideoComments() {
+    dispatch(getVideoComments(videoId));
+  }
+
   const handleComment = async () => {
     if (!user || !videoId) return;
 
@@ -32,6 +36,7 @@ export default function CommentsSection({ videoId }) {
       );
 
       if (data?.success === true) {
+        fetchVideoComments();
         SuccessToast(data.message);
         setComment('');
       }
@@ -41,10 +46,11 @@ export default function CommentsSection({ videoId }) {
   };
 
   useEffect(() => {
-    if (!videoId) return;
+    if (!videoId || videoComments) return;
+    fetchVideoComments();
 
-    dispatch(getVideoComments(videoId));
-  }, [dispatch, videoId]);
+    // eslint-disable-next-line
+  }, [videoId]);
 
   if (commentStatus === 'LOADING') {
     return (
@@ -106,7 +112,11 @@ export default function CommentsSection({ videoId }) {
       </Box>
       <Box>
         {videoComments?.map((cmt, index) => (
-          <CommentCard key={index} cmt={cmt} />
+          <CommentCard
+            key={index}
+            cmt={cmt}
+            fetchVideoComments={fetchVideoComments}
+          />
         ))}
       </Box>
     </Box>
